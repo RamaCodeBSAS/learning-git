@@ -1,4 +1,4 @@
-nombre  = "Juan"
+nombre  = "Ramiro"
 
 apellido = "Gracia"
 
