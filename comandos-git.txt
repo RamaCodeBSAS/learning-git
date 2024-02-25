@@ -70,6 +70,8 @@ git status -s | (muestra el estado pero más simplificado)
 
 git add {fileName} | (añade el archivo al estado de staging)
 
+git rm {fileName} | (remueve un archivo del repositorio)
+
 git commit -m "message" | (comitea los archivos que están en el área de staging)
 
 git commit -m "message" -a | (comitea tanto los archivos en staging como los que están en tracked files y deja un mensaje)
