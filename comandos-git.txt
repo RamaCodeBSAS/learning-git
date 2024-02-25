@@ -1,0 +1,124 @@
+/////////////////////////////////////// Palabras de GIT: ///////////////////////////////////////
+
+local repository: es nuestro repositorio local de nuestra pc.
+
+tracked files / work area: son los archivos que se encuentran dentro del repositorio local pero que no fueron ni añadidos al staging.
+
+Staging: es el momento en el que el archivo se añade con git add.
+
+Commit: es cuando el archivo ya se encuentra comiteado con un mensaje.
+
+remote repository: es el lugar en dónde va a parar todo lo que nosotros hagamos. Se hace una solicitud al servidor para recibir los cambios y sincronizar luego los nuestros. Sirve para trabajar con muchas personas.
+    EJ: Repositorio de GitHub, GitLab, etc.
+
+HEAD ->: es el puntero.
+
+RAMAS / BRANCHES : Las ramas son copias del proyecto principal con "caminos" que se desvían de la rama MASTER / MAIN y se crean con el propósito de poder trabajar en una parte del proyecto sin miedo a corromper la rama principal. Una vez que no hay fallas con lo que trabajabamos lo podemos pasar a la rama main.
+
+MERGE: Es el momento en el que fucionamos la rama secundaria en la que trabajabamos con la rama main.
+
+MASTER / MAIN : Es la rama principal, en donde se guarda el proyecto sin errores.
+
+.gitignore : Tiene como objetivo decirle a GIT que archivos tiene que ignorar (lo tenemos que crear nosotros)
+    Ej: *.txt ignoraría todos los archivos de texto.
+        !{fileName} lo "des-ignoraria"
+        {dirName/} ignora todo el contenido dentro del directorio. 
+        {!dirName/fileName.txt} no ignora el archivo que queremos dentro de ese directorio.
+        *).txt ignora todos los txt que terminen con ")"
+--> Si un archivo ya fue "rastreado" por el GIT entonces habría que eliminarlo del commit, no basta con el .gitignore
+
+
+
+
+///////////////////////////////////////// TIPS DE GIT: /////////////////////////////////////////
+
+añadir un . generalmente es sinonimo de todo (git add . (añade todos los archivos al staging))
+
+No vamos a ver una rama que sale de la main si no estamos parados en ella porque las ramas heredan de su padre y como la rama main no tiene padre solo se muestra la misma (excepto que usemos git log --oneline --all)
+
+
+
+
+/////////////////////////////////////// COMANDOS DE GIT: ///////////////////////////////////////
+
+git init | (inicia los repositorios git)
+
+git config --global | (para cambiar diferentes configuraciones globales de GIT)
+    EJ: git config --global core.excludesFile (ruta de gitignore_global) --> Esto añade un gitignore en otra ruta que funciona de manera global.
+    EJ: git config --global alias.{nombre-comando} {codigo comando} --> Para reemplazar un comando largo por uno nuestro propio.
+
+git status | (muestra el estado de git)
+
+git status -s | (muestra el estado pero más simplificado)
+
+git add {fileName} | (añade el archivo al estado de staging)
+
+git commit -m "message" | (comitea los archivos que están en el área de staging)
+
+git commit -m "message" -a | (comitea tanto los archivos en staging como los que están en tracked files y deja un mensaje)
+
+git commit | (comitea y luego nos abre vsc para dejar el mensaje -sirve para cuando queremos dejar mensajes más extensos-)
+
+git checkout {fileName} | (restaura a la version anterior de un archivo modificado que todavia no está en staging y no está comiteado)
+
+git mv {oldFileName} {newFileName} | (cambia el nombre del archivo, es necesario comitear luego.. no es necesario ponerlo de nuevo en staging ya que el archivo en si ya estaba ahí nada más se le cambió el nombre)
+
+git show {fileName} | (nos muestra el código del archivo y el mensaje siempre y cuando esté comiteado, si hacemos un cambio y no está comiteado no va a mostrar nada)
+
+git diff --staged | (nos muestra el código y mensaje del archivo antes de ser cambiado y luego de ser cambiado.. siempre y cuando el cambio haya sido añadido con add)
+
+git log | (muestra el id/hash del commit, el autor, el mail y cuando lo hizo)
+
+git log --oneline (muestra los commits de la rama en la que estamos parados)
+
+git log --oneline --all (muestra todos los commits sin importar en la rama que estemos)
+
+git config --global core.abbrev (5 ~ 10 -o más-) | (reduce o aumenta la cantidad de caracteres mostrados en el hash)
+
+get diff {hash} {hash} | (compara y muestra las diferencias entre los archivos comiteados)
+
+get diff --name-only {hash} {hash} | (muestra los nombres de los archivos que cambiaron)
+
+get diff --word-diff {hash} {hash} | (muestra los cambios realizados, en gris lo que ya estaba y en rojo lo que no estaba)
+
+git commit --amend | (abre el último commit para modificarlo. También se cambia el hash aunque no lo editemos)
+
+git rebase -i head~(número) | (se abre vsc con los últimos commits (número) que nosotros establecimos. Cambiamos pick por edit en el que queremos cambiar. Luego utilizamos git commit --amend para editarlo y git rebase --continue para que aparezcan los otros commits que no editamos. PD: Se van a cambiar los hash de los commit que selecionamos en (número)) --> Es más fácil utilizar solo git commit --amend para editar el último commit...
+
+git rebase -i {hash} | (lo mismo pero apuntamos directamente al hash del commit que queremos modificar)
+
+git reset --soft {hash} | (cambia el puntero (HEAD) al hash del commit que seleccionemos, lo que elimina todos los commits que estaban antes del mismo)
+
+gut reset --soft head~(número) | (baja el puntero a la cantidad que establecimos eliminando los commits)
+
+git reset --hard | (resetea a la version anterior de un archivo en staging pero no está comiteado. También muestra un mensaje al último cambio en el que estamos parados PD: No utilizar mucho porque es de mala práctica)
+
+    git reset --hard {hash} | (sirve para cuando nos mandamos una cagada y queremos "desfucionar" las ramas. Hay que usar el hash del anterior master. Esto NO elimina el anterior commit sino que solo separa las ramas. Podemos volver a la anterior rama y añadir de nuevo el archivo para seguir trabajando)
+
+    git reset --hard {hash o HEAD~(1...n)} | (también se usa para eliminar commits... aunque estos commits no se eliminana ya que si usamos el mismo comando pero apuntando al hash del commit eliminado volvemos a él)
+
+git branch | (muestra las ramas creadas)
+
+git branch {branch-name} (siempre minúscula) | (crea una rama)
+
+git switch {branch-name} | (sirve para movernos a una rama que creamos)
+
+git switch -c (create) {branch-name} | (creamos una rama y nos movemos a ella)
+
+git branch -m (modificar) {old-branch-name} {new-branch-name} | (cambia el nombre de la rama sin estar parados en esa rama)
+
+git branch -m | (cambia el nombre de la rama en la que estamos parados)
+
+git merge {branch-name} | (fuciona la rama secundria con la master)
+
+
+git branch -d (delete) {branch-name} | (borra la rama - NO hay que estar parados en la rama que vamos a borrar. Una vez que fucionamos la rama con la main y no queremos hacer cambios podemos borrarla)
+
+git ls-tree -r --name-only {hash} | (muestra todos los archivos y directorios del commit que buscamos con el hash)
+
+git reflog | (muestra un historial de los cambios realizados. Sirve para movernos a un commit eliminado el cual no sabemos el hash porque hicimos un clear, etc.)
+
+
+
+
+
