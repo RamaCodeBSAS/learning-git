@@ -1,6 +1,6 @@
-nombre  = "Soy"
+nombre  = "Ramiro"
 
-apellido = "Ramiro"
+apellido = "Gracia"
 
 saludo = "Hola " + nombre + " " + apellido
 
