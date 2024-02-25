@@ -1,3 +1,17 @@
+/////////////////////////////////////// BUENAS PRÁCTICAS: //////////////////////////////////////
+
+-Siempre tener un .gitignore
+
+-Las ramas siempre tienen que ser creadas siempre en base a un objetivo o sea resolver un problema o crear algo nuevo. Cuando se cumple el objetivo esa rama se limpia y se elimina.
+
+-Las ramas y los commits tienen que tener nombres detallados de lo que se está haciendo.
+
+-Antes de hacer un pull request primero hay que hacer un merge de la rama en la que trabajamos con la master para ver que funcione todo bien y ahí hacer el pull request.
+
+-Hay que evitar trabajar en la rama main/master.
+
+-Los commits hay que hacerlos recién cuando terminé completamente lo que estaba desarrollando.
+
 /////////////////////////////////////// Palabras de GIT: ///////////////////////////////////////
 
 local repository: es nuestro repositorio local de nuestra pc.
@@ -19,6 +33,8 @@ MERGE: Es el momento en el que fucionamos la rama secundaria en la que trabajaba
 
 MASTER / MAIN : Es la rama principal, en donde se guarda el proyecto sin errores.
 
+ORIGIN : Hace referencia al repositorio remoto.
+
 .gitignore : Tiene como objetivo decirle a GIT que archivos tiene que ignorar (lo tenemos que crear nosotros)
     Ej: *.txt ignoraría todos los archivos de texto.
         !{fileName} lo "des-ignoraria"
@@ -27,16 +43,15 @@ MASTER / MAIN : Es la rama principal, en donde se guarda el proyecto sin errores
         *).txt ignora todos los txt que terminen con ")"
 --> Si un archivo ya fue "rastreado" por el GIT entonces habría que eliminarlo del commit, no basta con el .gitignore
 
+fork : es una copia directa de un directorio que no es propio nuestro. Se hace desde GitHub
 
+pull-request : sirve para contribuir con mejor codigo a repositorios de otros usuarios. Se descarga el repositorio remoto a nuestro repo local, lo modificamos, lo subimos a nuestro repo remoto y en el repo remoto del usuario al que contribuimos vamos a "contribute - open pull request" escribimos un titulo y un comentario con los cambios realizados.
 
+GitHub Issues: son como tickets que realizan los colaboradores para destacar fallas o proponer ideas de mejoras para un repositorio. Se pueden cerrar y comentar.
 
-///////////////////////////////////////// TIPS DE GIT: /////////////////////////////////////////
-
-añadir un . generalmente es sinonimo de todo (git add . (añade todos los archivos al staging))
-
-No vamos a ver una rama que sale de la main si no estamos parados en ella porque las ramas heredan de su padre y como la rama main no tiene padre solo se muestra la misma (excepto que usemos git log --oneline --all)
-
-
+Git Stash : sirve para guardar cambios momentaneamente.
+	git stash
+	git stash pop
 
 
 /////////////////////////////////////// COMANDOS DE GIT: ///////////////////////////////////////
@@ -46,6 +61,8 @@ git init | (inicia los repositorios git)
 git config --global | (para cambiar diferentes configuraciones globales de GIT)
     EJ: git config --global core.excludesFile (ruta de gitignore_global) --> Esto añade un gitignore en otra ruta que funciona de manera global.
     EJ: git config --global alias.{nombre-comando} {codigo comando} --> Para reemplazar un comando largo por uno nuestro propio.
+
+git code . | (abre la carpeta en la que estamos parados con vsc)
 
 git status | (muestra el estado de git)
 
@@ -118,7 +135,13 @@ git ls-tree -r --name-only {hash} | (muestra todos los archivos y directorios de
 
 git reflog | (muestra un historial de los cambios realizados. Sirve para movernos a un commit eliminado el cual no sabemos el hash porque hicimos un clear, etc.)
 
+git clone {link-repositorio} | (clona un repositorio con el link https)
 
+git push origin (repositorio remoto) master | (sube todo el contenido trabajado en nuestro repositorio local al repositorio remoto. Nos piden un token para inciar sesion en GitHub)
+    PD: No es necesario agregar el origin master con poner solo git push ya esta.
 
+git pull | (trae los cambios realizados en el repositorio remoto hacia nuestro repositorio local y los fusiona con nuestra rama)
 
+git fetch | (trae los cambios del repositorio remoto al local pero no los fusiona directamente lo que nos da más control sobre los cambios)
 
+git switch --detach origin/master | (crea una rama temporal para ver los cambios que trajimos con fetch y si queremos aceptarlos usamos git pull)
