@@ -130,7 +130,6 @@ git branch -m | (cambia el nombre de la rama en la que estamos parados)
 
 git merge {branch-name} | (fuciona la rama secundria con la master)
 
-
 git branch -d (delete) {branch-name} | (borra la rama - NO hay que estar parados en la rama que vamos a borrar. Una vez que fucionamos la rama con la main y no queremos hacer cambios podemos borrarla)
 
 git ls-tree -r --name-only {hash} | (muestra todos los archivos y directorios del commit que buscamos con el hash)
